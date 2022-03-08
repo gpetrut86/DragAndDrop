@@ -1,0 +1,54 @@
+<div class="root">
+    <div class="navbar ">
+        <div class="navbar-brand">
+            <div class="navbar-item">
+                <h1 class="app-name has-gradient-text">URZ</h1>
+            </div>
+        </div>
+    </div>
+
+    <div class="board">
+
+        <div class="board-bar">
+            <p class="board-name">Board Name</p>
+        </div>
+
+        <div class="board-wrapper">
+            <div class="board-columns" cdkDropListGroup>
+                <div class="board-column" *ngFor="let column of board.columns; let i=index">
+
+                    <div class="column-title">
+                        {{ column.name}} <button (click)="toggleAdd(i)" class="button is-success">+</button>
+                    </div>
+
+                    <!-- Add Form-->
+
+                    <div class="field" [ngClass]="status[i] ? 'show' : 'hide'">
+                        <label class="label has-text-white">Add {{column.name}}
+                            task</label>
+                        <div class="control">
+                            <input class="input" type="text" placeholder="Text input" [(ngModel)]="inputValue[i]">
+                        </div>
+
+                        <div class="control mt-1">
+                            <button (click)="addTask(i)" class="button is-info">Add</button>
+                        </div>
+                    </div>
+
+                    <div class="task-container" cdkDropList #todoList="cdkDropList" [cdkDropListData]="column.tasks"
+                        (cdkDropListDropped)="drop($event)">
+
+                        <div class="task" *ngFor="let item of column.tasks" cdkDrag>
+                            {{item}} <button class="button is-danger" (click)="deleteTask(item,i)">X</button>
+                        </div>
+
+                    </div>
+                </div>
+
+
+
+            </div>
+        </div>
+    </div>
+
+</div>
